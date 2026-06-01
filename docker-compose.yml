@@ -1,17 +1,15 @@
 services:
   mt5:
     build:
-      context: .
-      dockerfile: mt5/Dockerfile
-      network: host
+      dockerfile: Dockerfile
+    container_name: mt5
+    volumes:
+      - mt5_config:/config
+    
     environment:
-      - ACCOUNT=
-      - PASSWORD=
-      - SERVER=
-    deploy:
-      replicas: 1
-    # volumes:
-    #   - ./docker/mt5/:/root/.wine/drive_c/fx
+      - CUSTOM_USER=${MT5_USER:-user}
+      - PASSWORD=${MT5_PASSWORD:-pass}
+      - VNC_DOMAIN=${MT5_VNC_DOMAIN:-localhost}
     networks:
       - dokploy-network
     labels:
