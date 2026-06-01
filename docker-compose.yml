@@ -1,13 +1,17 @@
 services:
   mt5:
-    build: .
-    image: gmag11/metatrader5_vnc
-    container_name: mt5
-    volumes:
-      - mt5_config:/config
+    build:
+      context: .
+      dockerfile: mt5/Dockerfile
+      network: host
     environment:
-      - CUSTOM_USER=${MT5_USER:-user}
-      - PASSWORD=${MT5_PASS:-password}
+      - ACCOUNT=
+      - PASSWORD=
+      - SERVER=
+    deploy:
+      replicas: 1
+    # volumes:
+    #   - ./docker/mt5/:/root/.wine/drive_c/fx
     networks:
       - dokploy-network
     labels:
