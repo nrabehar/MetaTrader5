@@ -44,4 +44,6 @@ RUN touch /var/log/mt5_setup.log && \
 	chmod abc:abc /var/log/mt5_setup.log && \
 	chmod 644 /var/log/mt5_setup.log
 
+EXPOSE 3000
+
 VOLUME /config
