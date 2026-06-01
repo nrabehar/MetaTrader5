@@ -4,10 +4,19 @@ services:
     image: gmag11/metatrader5_vnc
     container_name: mt5
     volumes:
-      - ./config:/config
-    ports:
-      - 3000:3000
-      - 8001:8001
-    env_file:
-      - .env
+      - mt5_config:/config
+    environment:
+      - CUSTOM_USER=${MT5_USER:-user}
+      - PASSWORD=${MT5_PASS:-password}
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.docker.network=dokploy-network"
 
+networks:
+  dokploy-network:
+    external: true
+
+volumes:
+  mt5_config:
+    driver: local
